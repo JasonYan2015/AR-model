@@ -14,6 +14,19 @@ summary(p1 <- powerTransform(moveZhnindown));
 # 得到lamda值为0.3858,p值为0.39，然后进行box-cox变换——公式：(y^λ-1)/λ  λ≠0
 newZhnindown <- (I(zhonghnanindown^0.3858-1)/0.3858);
 # 变换完数据集，进行自回归建模（TODO. 可以校验一下正态性），(自回归建模参考)[http://blog.fens.me/r-ar/]
+# 使用ar函数默认的yule-walker方法进行参数估计
+a<-ar(newZhnindown)
+# 使用predict函数进行模型预测
+# 生成50个预测值 
+> tsp<-predict(a,n.ahead=50L)
+
+# 把原数据画图 
+> plot(newZhnindown)
+
+# 把预测值和误差画出来
+> lines(tsp$pred,col='red')                
+> lines(tsp$pred+tsp$se,col='blue')
+> lines(tsp$pred-tsp$se,col='blue')
 
 # 进行自回归建模
 a <- ar(newZhnindown)
@@ -26,10 +39,10 @@ predict(a, 10, n.ahead = 5L)
 # 上面结果中，变量$pred表示预测值，变量$se为误差。
 # 我可以生成可视化的图，更直观的看到预测的结果。
 
-# 生成50个预测值 
+# 生成50个预测值
 tsp <- predict(a, n.ahead = 50L)
 
-# 把原数据画图 
+# 把原数据画图
 plot(newZhnindown)
 
 # 把预测值和误差画出来
