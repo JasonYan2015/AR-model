@@ -61,7 +61,7 @@ a<-ar(newZhnindown)
 
 # 使用predict函数进行模型预测
 # 生成50个预测值 
-> tsp<-predict(a,n.ahead=50L)
+tsp<-predict(a,n.ahead=50L)
 #-------------------------
 
 # $pred
@@ -94,12 +94,12 @@ a<-ar(newZhnindown)
 # ------------------------
 
 # 把原数据画图 
-> plot(newZhnindown)
+plot(newZhnindown)
 
 # 把预测值和误差画出来
-> lines(tsp$pred,col='red')                
-> lines(tsp$pred+tsp$se,col='blue')
-> lines(tsp$pred-tsp$se,col='blue')
+lines(tsp$pred,col='red')                
+lines(tsp$pred+tsp$se,col='blue')
+lines(tsp$pred-tsp$se,col='blue')
 
 # 进行自回归建模
 a <- ar(newZhnindown)
