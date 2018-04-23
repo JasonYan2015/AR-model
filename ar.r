@@ -7,11 +7,13 @@ library(car);
 # 获取数据
 data <- read.csv("donglianin.csv");
 
-# 抽样　由excel图标得　4300到7300的数据相对稳定
-sample <- subset(data, id > 4300 & id < 7300);
+# 抽样　由excel图标得　4300到7300的数据相对稳定，由于不必要求过大，再抽取5000~6000之间，sample50用于最后对比预测数据
+sample <- subset(data, id > 5000 & id < 6000);
+sample50 <- subset(data, id > 5000 & id < 6050);
 
 # 抽样　建立一元回归　抽样中华南入市下桥路口数据,因为(参考)[http://bbs.pinggu.org/thread-2741562-1-1.html]所说，数据不能有零，所以加上１偏移
 zhonghnanindown <- sample$zhonghnanindown;
+zhonghnanindown50 <- sample50$zhonghnanindown;
 moveZhnindown <- sample$zhonghnanindown + 1;
 
 # 获取lamda准备进行box-cox变换　为　正态/伽马　分布
@@ -93,13 +95,16 @@ tsp<-predict(a,n.ahead=50L)
 
 # ------------------------
 
+# 预测数据进行box-cox逆变换，公式：y=(1+λy)^(1/λ)
+result <- I((1 + 0.3858*tsp)^(1/λ))
+
 # 把原数据画图 
-plot(newZhnindown)
+plot(zhonghnanindown50)
 
 # 把预测值和误差画出来
-lines(tsp$pred,col='red')
-lines(tsp$pred+tsp$se,col='blue')
-lines(tsp$pred-tsp$se,col='blue')
+lines(result$pred,col='red')
+lines(result$pred+result$se,col='blue')
+lines(result$pred-result$se,col='blue')
 
 # 图中，黑色线为原始数据的，红色线为预测值，蓝色线为预测值的范围。这样我们就利用AR(1)模型，实现了对规律的预测计算。
 
