@@ -40,10 +40,11 @@ newZhnindown <- (I(zhonghnanindown ^ 0.5494 - 1) / 0.5494);
 
 # 变换完数据集，进行自回归建模，(自回归建模参考)[http://blog.fens.me/r-ar/]
 # 使用ar函数默认的yule-walker方法进行参数估计(TODO:滞后阶数过高，由acf和pacf得只需要５阶即可即AR(5)模型)
-a <- ar(newZhnindown)
+# 0514更新：新增调用参数　aic和order.max ,由《R语言核心技术手册》——　Joseph Adler　Ｐ521得，使用赤池信息准则来选择模型阶数，同事指定模型拟合的最大阶数为１０
+a <- ar(newZhnindown, aic = TRUE, order.max = 10)
 # -----------------------
 
-# Call:
+# Call:R
 # ar(x = newZhnindown)
 
 # Coefficients:
