@@ -112,17 +112,38 @@ lines(pred - se, col='blue')
 
 
 
-# # ----------- 其他方法进行参数估计，暂时没用到 ------------------
+# --------------------------------------------------------------------
+# ----------- 后续分析 ------------------
+# 加载forecast包
+library('forecast')
 
-# # 进行自回归建模，默认的yule-walker方法
-# a <- ar(newZhnindown)
-# # 最小二乘法，进行参数估计
-# b <- ar(newZhnindown,method = "ols")
-# # 极大似然法，进行参数估计
-# d <- ar(newZhnindown,method = "mle")
-# # 使用AR(1)模型进行预测，并保留前5个预测点。
-# predict(a, 10, n.ahead = 5L)
-# # 上面结果中，变量$pred表示预测值，变量$se为误差。
+# 查看自相关性和偏自相关性
+# 自相关性图表明自相关系数长期大于０，说明序列间具有很强的长期相关性，为非平稳序列，需要差分处理
+Acf(zhonghnanindown)
+Pacf(zhonghnanindown)
+
+# 对数据作一阶差分
+dZhonghnanindown <- diff(zhonghnanindown)
+
+# 再次做自相关性和偏自相关性
+# 结果表明具有很强的短期相关性，是平稳序列了
+# 自相关图显示出一阶截尾，偏自相关呈现出拖尾性，所以可以考虑用MA(1)模型拟合，即对原始数据建立ARIMA(0,1,1)模型
+Acf(dZhonghnanindown)
+Pacf(dZhonghnanindown)
+
+# 一种自动的ARIMA模型参数判断
+# 如果有备选模型，可以再计算AIC,比较AIC小的就是更好的模型
+auto.arima(zhonghnanindown)
+
+
+
+
+
+
+
+
+
+
 
 
 # # ----------------- 参考资料 ----------------------------
