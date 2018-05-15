@@ -116,6 +116,7 @@ lines(pred - se, col='blue')
 # ----------- 后续分析 ------------------
 # 加载forecast包
 library('forecast')
+library('tseries')
 
 # 查看自相关性和偏自相关性
 # 自相关性图表明自相关系数长期大于０，说明序列间具有很强的长期相关性，为非平稳序列，需要差分处理
@@ -134,6 +135,14 @@ Pacf(dZhonghnanindown)
 # 一种自动的ARIMA模型参数判断
 # 如果有备选模型，可以再计算AIC,比较AIC小的就是更好的模型
 auto.arima(zhonghnanindown)
+
+# 均值平稳性验证
+
+# p值较大　无法拒绝原假设，不平稳
+adf.test(zhonghnanindown)
+
+# p值较小　接受备择假设，均值平稳
+adf.test(dZhonghnanindown)
 
 
 
