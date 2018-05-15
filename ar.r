@@ -138,7 +138,7 @@ auto.arima(zhonghnanindown)
 
 # 均值平稳性验证
 
-# p值较大　无法拒绝原假设，不平稳
+# p值较大　无法拒绝原假设
 adf.test(zhonghnanindown)
 
 # p值较小　接受备择假设，均值平稳
@@ -163,3 +163,4 @@ adf.test(dZhonghnanindown)
 #      如果数据中存在趋势项，则需要对其进行差分（p.s. 可以使用ndiffs()自动判断需要差分阶数）。"
 #  《Ｒ语言：实用数据分析和可视化技术》 Jared P.Rander                          p.s.对acf和pacf的解释比较浅显易懂
 #   《Ｒ语言数据分析与挖掘实战》  张良均，云伟标，王路，刘晓勇                      p.s.对平稳性检验解释详细
+#   《数据科学中的R语言》 李舰，肖凯                                            p.s.同上，也讲到了forecast包的BoxCox.lambda
