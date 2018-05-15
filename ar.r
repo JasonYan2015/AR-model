@@ -147,10 +147,10 @@ auto.arima(zhonghnanindown)
 
 
 # # ----------------- 参考资料 ----------------------------
-# 《R语言核心技术手册》 Joseph Adler          p.s.函数参数解释很详细
-# 《R语言实战》 Robert I.Kabacoff             p.s.时间序列讲得很详细
+# 《R语言核心技术手册》 Joseph Adler                                          p.s.函数参数解释很详细
+# 《R语言实战》 Robert I.Kabacoff                                           p.s.时间序列讲得很详细
 #     "平稳性一般可以通过时序图直观判断（p.s.或者tseries包的adf.test()）。
 #      如果方差不是常数，则需要对数据做变换（p.s.box-cox之类）；
 #      如果数据中存在趋势项，则需要对其进行差分（p.s. 可以使用ndiffs()自动判断需要差分阶数）。"
-#  《Ｒ语言：实用数据分析和可视化技术》 Jared P.Rander     p.s.对acf和pacf的解释比较浅显易懂
-
+#  《Ｒ语言：实用数据分析和可视化技术》 Jared P.Rander                          p.s.对acf和pacf的解释比较浅显易懂
+#   《Ｒ语言数据分析与挖掘实战》  张良均，云伟标，王路，刘晓勇                      p.s.对平稳性检验解释详细
