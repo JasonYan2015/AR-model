@@ -150,7 +150,27 @@ adf.test(dZhonghnanindown)
 # ------------------- 伽马分布 ------------------------
 # 由于源数据是非负整数分布，因此使用指数转换　log(x + 1)　转换到正实数，以满足伽马分布
 # 伽马分布后续步骤可以使用 GAMLSS 或 GLM 做
+# 新截取数据
+testD <- subset(data, id > 5000 & id < 6000, select = c(id, time, zhonghnanindown))
 
+# 泊松分布拟合泊松回归 TODO. formula　不知道怎么写，也因此　data　存在疑问
+# 如果要换用伽马分布　只要把　family 的 poisson 换成 gamma 即可
+fit <- glm(formula = , data = testD?, family = poisson())
+
+# 由于在泊松回归中，因变量以条件均值的对数形式　ln(λ) 建模，所以为了直观表明回归系数，把系数指数化
+# 可得截距和相关预测变量的系数，具体意义为：预测变量增加１，则因变量将乘以预测变量的系数变化（若不指数化那么系数对因变量的反映为对数形式）
+exp(coef(fit))
+
+# 检验过度离势
+# 可以使用qcc包
+install.packages('qcc')
+library('qcc')
+
+# 如果返回的p值小于0.05则说明存在过度离势
+qcc.overdispersion.test(testD$predictData, type = "poisson")
+
+# 如果存在过度离势，那么可以使用类泊松代替泊松进行拟合
+fit.od <- glm(formula = , data = testD, family = "quasipoisson")
 
 
 
