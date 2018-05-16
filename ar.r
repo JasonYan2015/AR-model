@@ -165,6 +165,8 @@ exp(coef(fit))
 # 可以使用qcc包
 install.packages('qcc')
 library('qcc')
+# 也可以使用公式计算，如果残差偏差与偏差自由度的比例远远大于１则表明存在过度离势
+deviance(fit) / df.residual(fit)
 
 # 如果返回的p值小于0.05则说明存在过度离势
 qcc.overdispersion.test(testD$predictData, type = "poisson")
